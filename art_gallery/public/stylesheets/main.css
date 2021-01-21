@@ -1,0 +1,23 @@
+.thumbnail {
+	padding: 0;
+}
+.thumbnail img{
+	width: 100%;
+}
+.thumbnail .caption-full{
+	padding: 9px;
+}
+.delete-form{
+	display: inline;
+}
+.back-size{
+	font-size:20px;
+	font-weight:bold;
+}
+.heading{
+	text-align:center;
+	font-size: 300%;
+	font-family:verdana;
+	font-weight: bold;
+	font-variant:small-caps;
+}

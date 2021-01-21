@@ -1,0 +1,64 @@
+<%- include("../partials/header") %>
+
+	<div class="row">
+		<div class="col-md-auto">
+			<strong><h4 class="lead heading">Art By 
+				<%= artwork.author.firstName %></h4></strong>
+			<div class="thumbnail">
+				<img class="img-responsive" src="<%= artwork.image %>">     
+				<div class="caption-full">
+					<h4><a><%= artwork.name %></a></h4>
+					<p><%= artwork.description %></p>
+					<p>
+						<!---moment([2007, 0, 29]).fromNow(); // 4 years ago---->
+						<em>Submitted By<a href="/users/<%= artwork.author.id %>"> <%= artwork.author.username%> </a>, <%= moment(artwork.createdAt).fromNow()%></em> 
+					</p>
+					<!----current user is dispisplayed in app.js where we passsed current user to evey user------->
+					<% if((currentUser && artwork.author.id.equals(currentUser._id)) || (currentUser && currentUser.isAdmin )){ %>
+					<a class=" btn btn-warning" href="/artworks/<%= artwork._id %>/edit">Edit</a>
+					<!-----for delteing a artwork---->
+					<form class="delete-form" action="/artworks/<%= artwork._id%>?_method=DELETE" method="POST">
+						<button class="btn btn-danger">
+							Delete
+						</button>
+					</form>
+					<% } %>
+				</div>
+			</div>
+			<div class="well">
+				<div class="text-right">
+					<a class="btn btn-success" href="/artworks/<%= artwork._id%>/comments/new">Add Comment</a>
+					
+				</div>
+				<hr>
+				<% artwork.comments.forEach(function(comment){%>
+						<div class="row">
+							<div class="col-md-12">
+								<strong><%= comment.author.username %></strong>
+								<span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+								<p>
+									<%= comment.text %>
+								</p>
+								<!------dont give spaces between href------->
+								<% if((currentUser && comment.author.id.equals(currentUser._id))|| (currentUser && currentUser.isAdmin)) { %>
+								<a class="btn btn-xs btn-warning" 
+					
+	href="/artworks/<%= artwork._id%>/comments/<%= comment._id %>/edit">
+								Edit</a>
+								<form class="delete-form"
+									  action="/artworks/<%= artwork._id%>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+									<input class="btn btn-xs btn-danger" type="Submit" value="Delete">
+									
+								</form>
+								<% } %>
+								<hr>
+							</div>
+				</div>
+                 <% }) %>
+			</div>
+			<div>
+				<a href="/artworks" class="back-size" >Go Back</a>
+			</div>
+		</div>
+	</div>
+<%- include("../partials/footer") %>

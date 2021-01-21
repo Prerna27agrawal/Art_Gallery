@@ -1,0 +1,84 @@
+<%- include("../partials/header") %>
+<% if(currentUser && currentUser.isAdmin){%>
+ <h1>You're an Admin!</h1>
+<%}%>
+ <header class="jumbotron">
+     <div class="container">
+     <h1>Welcome To ArtsClub
+     </h1>
+     <p>
+         
+         College festival's Art Work Gallery.
+     </p>
+         <p>
+     <a  class="btn btn-primary btn-lg" href="/artworks/new">Add Your Art</a>	
+         </p>
+     </div>
+     </header>
+
+     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
+ <% artworks.forEach(function(artwork) { %>
+ <div class="col-md-3 col-sm-6">
+     <div class="thumbnail">
+     <img src="<%= artwork.image %>" height="200px" width="200px" >
+         <div class="caption">
+             <h4><%= artwork.name %></h4>
+         </div>
+         <p>
+             <a href="/artworks/<%= artwork._id %>" class="btn btn-primary">More info</a>
+         </p>
+     </div>
+ </div>
+
+
+ <% }); %>
+</div>
+<div class= "container">
+         <div class="row text-center">
+ <% if (page && page > 0) { %>
+ <ul class="pagination text-center">
+     <% if (current == 1) { %>
+     <li class="disabled"><a>First</a></li>
+     <% } else { %>
+     <li><a href="/artworks">First</a></li>
+     <% } %>
+
+     <% if (current == 1) { %>
+     <li class="disabled"><a>«</a></li>
+     <% } else { %>
+     <li><a href="/artworks?page=<%= Number(current) - 1 %>">«</a></li>
+     <% } %>
+
+     <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+     <% if (i !== 1) { %>
+     <li class="disabled"><a>...</a></li>
+     <% } %>
+     <% for (; i <= (Number(current) + 4) && i <= page; i++) { %>
+     <% if (i == current) { %>
+     <li class="active"><a><%= i %></a></li>
+     <% } else { %>
+     <li><a href="/artworks?page=<%= i %>"><%= i %></a></li>
+     <% } %>
+     <% if (i == Number(current) + 4 && i < page) { %>
+     <li class="disabled"><a>...</a></li>
+     <% } %>
+     <% } %>
+
+     <% if (current == page) { %>
+     <li class="disabled"><a>»</a></li>
+     <% } else { %>
+     <li><a href="/artworks?page=<%= Number(current) + 1 %>">»</a></li>
+     <% } %>
+
+     <% if (current == page) { %>
+     <li class="disabled"><a>Last</a></li>
+     <% } else { %>
+     <li><a href="/artworks?page=<%= page %>">Last</a></li>
+     <% } %>
+ </ul>
+ <% } %>
+</div>
+     </div>
+
+ 
+<%- include("../partials/footer") %>
