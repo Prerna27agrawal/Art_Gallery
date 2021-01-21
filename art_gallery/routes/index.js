@@ -36,7 +36,7 @@ router.post("/register",function(req,res){
 			email: req.body.email
 		});
 	//check user is admin or not
-	if(req.body.adminCode == "prerna2727"){
+	if(req.body.adminCode ==  process.env.ADMIN_CODE){
 		newUser.isAdmin = true;
 	}
 	
