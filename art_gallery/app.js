@@ -20,7 +20,6 @@ var flash          =require("connect-flash");
 var artwork= require("./models/artworks");
 var Comment = require("./models/comment");
 var User = require("./models/user");
-var seedDB = require("./seeds");
 
 var commentRoutes = require("./routes/comments");
 var artworkRoutes=require("./routes/artworks");
